@@ -37,8 +37,8 @@ The queued parser fix does not close #4471. It leaves the <code>hint</code> and
   guess is often wrong.
 - **One-day moves are their own problem.** The desk's notes mark reports where the date moved
   by one day, or where two attendees got different days. A day/month swap cannot do that.
-  `CauseTable` counts them under `parser` and adds a footnote. Here they are counted once,
-  under `timezone`.
+  `CauseTable` counts them under `parser` and adds a footnote. Here they keep that count and
+  get their own row and ticket, `timezone`.
 
 ## The same reports, as #4471 shows them
 

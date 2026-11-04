@@ -8,7 +8,6 @@
   let { ticket }: { ticket: number } = $props();
 
   const split = $derived(groupByProblem(reports as Report[], ticket, tenantOf, notes.oneDayMove));
-  const placed = $derived(split.groups.reduce((n, g) => n + g.reports.length, 0));
   const channels = (c: Record<string, number>) =>
     Object.entries(c)
       .sort((a, b) => b[1] - a[1])
@@ -20,8 +19,7 @@
 <p class="sum">
   <strong>{split.merged.length}</strong> reports merged into #{ticket} ·
   <strong>{split.groups.length}</strong>
-  {split.groups.length === 1 ? 'problem' : 'problems'} ·
-  {placed === split.merged.length ? 'every report counted once' : `${split.merged.length - placed} reports not counted`}
+  {split.groups.length === 1 ? 'problem' : 'problems'}
 </p>
 
 <table>
@@ -47,6 +45,10 @@
     {/each}
   </tbody>
 </table>
+
+{#if split.alsoFiled}
+  <p class="muted">Counted the desk's way: the {split.alsoFiled} <code>timezone</code> reports are also counted under the cause their tenant files them under.</p>
+{/if}
 
 <dl>
   {#each split.groups as g (g.problem)}
