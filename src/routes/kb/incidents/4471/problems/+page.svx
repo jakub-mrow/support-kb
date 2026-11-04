@@ -14,13 +14,16 @@ signature: v1.eyJzdWIiOiIzNDE5IiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYX
   import RenderStamp from '#lib/kb/RenderStamp.svelte';
 </script>
 
-[#4471](/kb/incidents/4471) is marked known: one issue, one fix queued. Its own table says
+[#4471](/kb/incidents/4471) was marked known: one issue, one fix queued. Its own table said
 otherwise. Read with the tenant directory and the desk's notes, its reports hold three problems.
-Each one needs its own fix, and each now has its own ticket.
+Each one needed its own fix, and each has its own ticket.
+
+Engineering closed #4471 on 5 October: `parser` fixed, `hint` won't fix because booking-v3 is
+retired.
 
 <Callout kind="warn">
-The queued parser fix does not close #4471. It leaves the <code>hint</code> and
-<code>timezone</code> reports open.
+Closing #4471 did not close <code>timezone</code>. No change in the update touches one-day moves,
+so its ticket stays open.
 </Callout>
 
 ## What #4471 holds

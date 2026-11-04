@@ -8,20 +8,28 @@ export const PROBLEMS: readonly Problem[] = ['parser', 'hint', 'timezone'];
 
 export const TICKETS_REPO = 'jakub-mrow/support-kb';
 
-// One ticket per problem, filed in TICKETS_REPO.
-export const PROBLEM_INFO: Record<Problem, { ticket: number; what: string; fix: string }> = {
+export type TicketState = 'fixed' | "won't fix" | 'open';
+
+// One ticket per problem, filed in TICKETS_REPO, with where engineering left it when #4471 closed (5 Oct).
+export const PROBLEM_INFO: Record<Problem, { ticket: number; state: TicketState; outcome: string; what: string; fix: string }> = {
   parser: {
     ticket: 1,
+    state: 'fixed',
+    outcome: 'fix(dates): parse dd/mm for eu locales',
     what: 'The shared parser reads every date month first. Day-first tenants get day and month swapped.',
-    fix: 'Parse with the tenant locale. This is the fix #4471 has queued.',
+    fix: 'Parse with the tenant locale. Shipped when #4471 closed.',
   },
   hint: {
     ticket: 2,
+    state: "won't fix",
+    outcome: 'booking-v3 form retired',
     what: 'booking-v3 prints MM/DD/YYYY under its date field. Day-first tenants type month first as told, and the form reads it day first.',
-    fix: 'Print the hint in the tenant locale. The parser fix alone does not close these.',
+    fix: 'Print the hint in the tenant locale. Not needed now: booking-v3 is retired.',
   },
   timezone: {
     ticket: 3,
+    state: 'open',
+    outcome: 'not in the #4471 update: neither change touches it',
     what: 'The booked date moves by one day, or differs between attendees in different time zones. No day/month swap explains it. The desk still files these under parser by tenant.',
     fix: 'Build the invite date in the tenant time zone, not the server one. Neither date fix above touches it.',
   },

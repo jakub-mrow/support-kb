@@ -24,7 +24,7 @@
 
 <table>
   <thead>
-    <tr><th>problem</th><th>reports</th><th>tenants</th><th>came in by</th><th>seen</th><th>ticket</th></tr>
+    <tr><th>problem</th><th>reports</th><th>tenants</th><th>came in by</th><th>seen</th><th>ticket</th><th>state</th></tr>
   </thead>
   <tbody>
     {#each split.groups as g (g.problem)}
@@ -40,6 +40,9 @@
           {:else}
             none yet
           {/if}
+        </td>
+        <td class:open={g.problem === 'unplaced' || PROBLEM_INFO[g.problem].state === 'open'}>
+          {g.problem === 'unplaced' ? 'open' : PROBLEM_INFO[g.problem].state}
         </td>
       </tr>
     {/each}
@@ -57,6 +60,7 @@
       <dd>
         {PROBLEM_INFO[g.problem].what}
         <span class="fix">Fix: {PROBLEM_INFO[g.problem].fix}</span>
+        <span class="fix"><b>{PROBLEM_INFO[g.problem].state}</b>: {PROBLEM_INFO[g.problem].outcome}</span>
         <span class="muted">Intake tagged {intakeAgrees(g)} of them <code>{g.problem}</code>.</span>
       </dd>
     {/if}
@@ -71,4 +75,5 @@
   dd { margin: 0.2rem 0 0 0; }
   dd span { display: block; }
   .fix { margin-top: 0.2rem; }
+  .open { color: var(--warn); font-weight: 600; }
 </style>
